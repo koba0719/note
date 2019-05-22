@@ -1,0 +1,65 @@
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+#index {
+    background-image: url("/image/paper_00147.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    color: white;
+    margin-left: 20px;
+}
+
+.header-title {
+    font-size: 50px;
+    letter-spacing: 3px;
+    float: left;
+}
+
+.content-title {
+    margin-top: 100px;
+    margin-bottom: 30px;
+    font-size: 100px;
+    font-family: 'Bitter', serif;
+}
+
+.content-body {
+    font-size: 30px;
+    line-height: 1.1;
+}
+
+
+.global-nav {
+    float: right;
+    margin-top: 10px;
+    li {
+        float: left;
+        margin: 0 20px;
+        font-size: 20px;
+        list-style: none;
+    }
+}
+
+.nav-content {
+    color: white;
+    text-decoration: none;
+}
+.nav-content:hover {
+    color: gray;
+    text-decoration: none;
+}
+
+.btn {
+    margin-top: 30px;
+}
+
+body {
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}

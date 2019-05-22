@@ -1,0 +1,21 @@
+version: '3'
+services:
+  mysql:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: root         #rootユーザ用のパスワード
+      MYSQL_USER: user                 #作業ユーザ名
+      MYSQL_PASSWORD: user!password     #作業ユーザ用のパスワード
+      MYSQL_DATABASE: note    #作成するDB名
+      TZ: "Asia/Tokyo"
+    ports:
+      - 3306:3306
+    volumes:
+      - "./docker/mysql:/var/lib/mysql"
+  redis:
+    image: "redis:4.0.6"
+    container_name: note_redis
+    ports:
+      - "6379:6379"
