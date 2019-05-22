@@ -17,16 +17,18 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            投稿サービスを作ってみました
-                        </h5>
-                        <p class="card-text">
-                            <small class="text-muted">by koba0719 2019/05/22</small>
-                        </p>
+                @foreach($posts as $post)
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ $post -> title }}
+                            </h5>
+                            <p class="card-text">
+                                <small class="text-muted">by {{ $post->user->name }} {{ $post->updated_at }}</small>
+                            </p>
+                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
             <div class="col-md-3">
                 <div class="card">
