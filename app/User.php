@@ -2,9 +2,11 @@
 
 namespace App;
 
+use function foo\func;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 /**
  * App\User
@@ -14,6 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User query()
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Post[] $posts
  */
 class User extends Authenticatable
 {
@@ -45,4 +48,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 紐づく投稿を取得
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+
+    public function getRanking()
+    {
+        return DB::select('
+            select u.name, b.count 
+            from (
+                select p.user_id, count(p.user_id) as count 
+                from posts p 
+                group by p.user_id 
+                order by count desc
+                ) as b, 
+            note.users as u 
+            where u.id = b.user_id 
+            order by b.count desc 
+            ');
+    }
 }

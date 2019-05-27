@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('head')
+    <link rel="stylesheet" href="{{ asset('css/posts.css') }}">
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row ">
@@ -10,37 +14,37 @@
                             並べ替え
                         </h5>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">いいね</a>
-                        <a class="dropdown-item" href="#">投稿日時</a>
-                        <a class="dropdown-item" href="#">フォロワー</a>
+                        <a class="dropdown-item" href="/?scope=latest">投稿日時</a>
+                        <a class="dropdown-item" href="/?scope=like">いいね</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 @foreach($posts as $post)
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                {{ $post -> title }}
-                            </h5>
-                            <p class="card-text">
-                                <small class="text-muted">by {{ $post->user->name }} {{ $post->updated_at }}</small>
-                            </p>
+                    <a href="{{ url('/posts/item/'.$post->id) }}" class="post-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ $post -> title }}
+                                </h5>
+                                <p class="card-text">
+                                    <small class="text-muted">by {{ $post->user->name }} {{ $post->updated_at }}</small>
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">
-                            人気タグ
+                            新着のタグ
                         </h5>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <a class="dropdown-item" href="#">Separated link</a>
+                        @foreach($tags as $tag)
+                            <a class="dropdown-item" href="#">{{ $tag->name }}</a>
+                        @endforeach
                     </div>
                 </div>
                 <div class="card mt-3">
@@ -49,10 +53,9 @@
                             ユーザーランキング
                         </h5>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">koba0719</a>
-                        <a class="dropdown-item" href="#">bako9313</a>
-                        <a class="dropdown-item" href="#">lab392</a>
-                        <a class="dropdown-item" href="#">yametarou</a>
+                        @foreach($users as $user)
+                            <a class="dropdown-item" href="#">{{ $user->name }}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>

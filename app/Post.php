@@ -11,11 +11,18 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Post newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Post query()
  * @mixin \Eloquent
+ * @property-read \App\User $user
  */
 class Post extends Model
 {
+
+    /**
+     * 投稿したユーザーを取得
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
-        return $this->hasOne(User::class, 'id');
+        return $this->belongsTo(User::class);
     }
 }

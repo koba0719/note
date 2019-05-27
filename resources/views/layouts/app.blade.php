@@ -9,15 +9,16 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- yield Header -->
+    @yield('head')
 </head>
 <body>
     <div id="app">
@@ -38,11 +39,11 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-4" type="search" placeholder="Search" aria-label="Search">
-                        </form>
                         <!-- Authentication Links -->
                         @guest
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-4" type="search" placeholder="Search" aria-label="Search">
+                            </form>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
@@ -52,6 +53,13 @@
                                 </li>
                             @endif
                         @else
+                            <!-- NotAuthenticate -->
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-4" type="search" placeholder="Search" aria-label="Search">
+                            </form>
+                            <li class="nav-item mr-2">
+                                <a href="{{ url('posts/create') }}" class="btn btn-primary" role="button">投稿</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
