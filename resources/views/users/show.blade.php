@@ -11,13 +11,14 @@
                     <small class="card-title ml-3">{{ $user->email }}</small>
                     @auth
                         @if($user->id === Auth::user()->id)
-                            <a href="#" class="card-title ml-3">
+                            <a href="{{ url('user/'.$user->id.'/edit') }}" class="card-title ml-3">
                                 <small>プロフィールを編集する</small>
                             </a>
                         @endif
                     @endauth
                 </div>
             </div>
+
             <div class="col-md-9">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -27,6 +28,7 @@
                         <a href="#tab2" class="nav-link user-nav-link" data-toggle="tab">コメント一覧</a>
                     </li>
                 </ul>
+
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane active">
                         @foreach($posts as $post)
@@ -47,6 +49,7 @@
                             </a>
                         @endforeach
                     </div>
+
                     <div id="tab2" class="tab-pane">
                         @foreach($comments as $comment)
                             <a href="{{ url('/posts/item/'.$comment->post_id) }}" class="post-card">
@@ -66,6 +69,7 @@
                             </a>
                         @endforeach
                     </div>
+
                 </div>
             </div>
         </div>

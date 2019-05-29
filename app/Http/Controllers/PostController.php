@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\DB;
 class PostController extends Controller
 {
     /**
+     * PostController constructor.
+     */
+    public function __construct()
+    {
+        // 認可外のホワイトリスト
+        $this->middleware('auth')->except(['index', 'show', 'search']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param \Illuminate\Http\Request
@@ -125,22 +134,23 @@ class PostController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(int $id)
     {
         $post = Post::find($id);
+        $this->authorize('edit', $post);
         return view('posts.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, int $id)
     {
@@ -151,6 +161,8 @@ class PostController extends Controller
         $post->title = $title;
         $post->content = $content;
 
+        $this->authorize('update', $post);
+
         $post->save();
         return redirect('/posts/item/' . $id);
     }
@@ -159,12 +171,15 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(int $id)
     {
+        $post = Post::find($id);
+        $this->authorize('destroy', $post);
         // 投稿削除
-        Post::destroy($id);
+        $post->delete();
         //コメント削除
         $comment = Comment::where('post_id', '=', $id);
         if (!empty($comment)) $comment->delete();
