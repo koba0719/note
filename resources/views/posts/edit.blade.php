@@ -12,19 +12,19 @@
 
             <div class="col-md-10">
                 <!-- Create the editor container -->
-                <form action="{{ url('/posts/store') }}" id="post-form" method="POST">
-{{--                <form id="post-form">--}}
+                <form action="{{ url('/posts/item/'.$post->id) }}" id="post-form" method="POST">
                     @csrf
-                    @method('POST')
-                    <h3>投稿</h3>
-                    <input type="text" name="title" class="form-control" placeholder="タイトル">
+                    @method('PUT')
+                    <h3>編集</h3>
+                    <input type="text" name="title" class="form-control" value="{{ $post->title }}" placeholder="タイトル">
                     <div class="mt-3"></div>
                     <div class="card">
                         <div id="editor" class="editor-card">
+                            {!! $post->content !!}
                         </div>
                         <input type="hidden" id="hideContent" name="content">
                     </div>
-                    <button type="submit" id="submit" class="btn btn-primary">noteへ投稿</button>
+                    <button type="submit" id="submit" class="btn btn-primary">記事を更新</button>
                 </form>
                 <!-- Include the Quill library -->
                 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>

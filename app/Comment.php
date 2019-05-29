@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Comment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Comment query()
  * @mixin \Eloquent
+ * @property-read \App\Post $post
+ * @property-read \App\User $user
  */
 class Comment extends Model
 {

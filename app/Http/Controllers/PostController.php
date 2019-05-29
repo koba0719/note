@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Like;
 use App\Post;
+use App\PostTag;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,7 +94,7 @@ class PostController extends Controller
         $comment->comment = $content;
 
         $comment->save();
-        return redirect('/posts/item/'.$id);
+        return redirect('/posts/item/' . $id);
     }
 
     /**
@@ -105,40 +107,83 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $comments = Comment::where('post_id', [$post->id])->get();
+        if (Auth::user() !== null) {
+            $like = Like::where('post_id', '=', $id)->where('user_id', '=', Auth::user()->id)->get();
+            if ($like->isNotEmpty()) {
+                $likeStatus = "1";
+            } else {
+                $likeStatus = "0";
+            }
+            return view('posts.show', ['post' => $post, 'comments' => $comments, 'likeStatus' => $likeStatus]);
+        }
+
         return view('posts.show', ['post' => $post, 'comments' => $comments]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Post $post
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(int $id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Post $post
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, int $id)
     {
-        //
+        $title = $request->get('title');
+        $content = $request->get('content');
+
+        $post = Post::find($id);
+        $post->title = $title;
+        $post->content = $content;
+
+        $post->save();
+        return redirect('/posts/item/' . $id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Post $post
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(int $id)
     {
-        //
+        // 投稿削除
+        Post::destroy($id);
+        //コメント削除
+        $comment = Comment::where('post_id', '=', $id);
+        if (!empty($comment)) $comment->delete();
+        // タグ情報削除
+        $postTag = PostTag::where('post_id', '=', $id);
+        if (!empty($postTag)) $postTag->delete();
+        // いいね削除
+        $like = Like::where('post_id', '=', $id);
+        if (!empty($like)) $like->delete();
+
+        return redirect('/');
+    }
+
+    /**
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function search(Request $request)
+    {
+        $keyword = $request->get('keyword');
+        $posts = Post::Where('title', 'like', '%' . $keyword . '%')->orWhere('content', 'like', '%' . $keyword . '%')->get();
+        return view('posts.search', ['keyword' => $keyword, 'posts' => $posts]);
     }
 }

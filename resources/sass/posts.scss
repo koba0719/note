@@ -10,3 +10,10 @@
 .editor-card {
     min-height: 50vh;
 }
+
+.like-col {
+    position: relative;
+}
+.like-col__inner {
+    position: fixed;
+}

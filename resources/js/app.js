@@ -7,7 +7,8 @@
 
 require('./bootstrap');
 require('jquery');
-// window.Vue = require('vue');
+require('axios');
+window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -21,6 +22,7 @@ require('jquery');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('like-button', require('./components/like.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,5 +31,9 @@ require('jquery');
  */
 
 // const app = new Vue({
-//     el: '#app'
+//     el: '#exam'
 // });
+
+const like = new Vue({
+    el: '#like'
+});
