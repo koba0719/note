@@ -35,6 +35,7 @@ class PostController extends Controller
             note.users as u 
             where u.id = b.user_id 
             order by b.count desc 
+            limit 10
             ');
         if ($scope === 'like') {
             $posts = Post::orderBy('likes_count', 'desc')->orderBy('created_at', 'desc')->paginate(10);

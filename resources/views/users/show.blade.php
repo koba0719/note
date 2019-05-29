@@ -7,8 +7,15 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="card">
-                    <h3 class="card-title ml-3 mt-1">{{ $user->name }}</h3>
+                    <h3 class="card-title ml-3 mt-2">{{ $user->name }}</h3>
                     <small class="card-title ml-3">{{ $user->email }}</small>
+                    @auth
+                        @if($user->id === Auth::user()->id)
+                            <a href="#" class="card-title ml-3">
+                                <small>プロフィールを編集する</small>
+                            </a>
+                        @endif
+                    @endauth
                 </div>
             </div>
             <div class="col-md-9">
@@ -51,7 +58,8 @@
                                         <p class="card-text">
                                             <small class="text-muted">{{ $comment->post->title }}</small>
                                             <br>
-                                            <small class="text-muted">by {{ $comment->user->name }} {{ $comment->created_at }}</small>
+                                            <small class="text-muted">
+                                                by {{ $comment->user->name }} {{ $comment->created_at }}</small>
                                         </p>
                                     </div>
                                 </div>
