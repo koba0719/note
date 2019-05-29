@@ -49472,6 +49472,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/sass/users.scss":
+/*!***********************************!*\
+  !*** ./resources/sass/users.scss ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/welcome.scss":
 /*!*************************************!*\
   !*** ./resources/sass/welcome.scss ***!
@@ -49484,16 +49495,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!***********************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/welcome.scss ./resources/sass/posts.scss ***!
-  \***********************************************************************************************************************/
+/*!***************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/welcome.scss ./resources/sass/posts.scss ./resources/sass/users.scss ***!
+  \***************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/koba/Projects/LaravelProjects/note/resources/js/app.js */"./resources/js/app.js");
 __webpack_require__(/*! /Users/koba/Projects/LaravelProjects/note/resources/sass/app.scss */"./resources/sass/app.scss");
 __webpack_require__(/*! /Users/koba/Projects/LaravelProjects/note/resources/sass/welcome.scss */"./resources/sass/welcome.scss");
-module.exports = __webpack_require__(/*! /Users/koba/Projects/LaravelProjects/note/resources/sass/posts.scss */"./resources/sass/posts.scss");
+__webpack_require__(/*! /Users/koba/Projects/LaravelProjects/note/resources/sass/posts.scss */"./resources/sass/posts.scss");
+module.exports = __webpack_require__(/*! /Users/koba/Projects/LaravelProjects/note/resources/sass/users.scss */"./resources/sass/users.scss");
 
 
 /***/ })

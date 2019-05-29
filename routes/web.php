@@ -20,8 +20,7 @@ Route::get('posts/item/{id}', 'PostController@show');
 Route::get('posts/search', 'PostController@search');
 
 // Routing => UserController
-Route::get('/user/', 'UserController@index');
-Route::get('/user/{id}', 'UserController@show');
+//Route::get('/user/', 'UserController@index');
 
 
 Route::middleware('verified')->group(function () {
@@ -36,6 +35,7 @@ Route::middleware('verified')->group(function () {
     Route::post('posts/item/{id}/comment/store', 'PostController@commentStore');
 
     // Routing => UserController
+    Route::get('/user/{id}', 'UserController@show');
     Route::get('/user/{id}/edit', 'UserController@edit');
     Route::put('/user/{id}', 'UserController@update');
     Route::delete('/user/{id}', 'UserController@destroy');
