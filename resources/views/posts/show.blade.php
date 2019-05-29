@@ -9,7 +9,6 @@
             <div class="col-md-1 like-col mt-4">
                 <div class="like-col__inner">
                     <div id="like">
-                        {{--                        <like-button></like-button>--}}
                         @auth
                             <like-button like_status={{ $likeStatus }} post_id="{{ $post->id }}"
                                          user_id="{{ Auth::user()->id }}"></like-button>
