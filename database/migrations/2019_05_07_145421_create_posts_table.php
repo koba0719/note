@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->integer('user_id');
             $table->string('title');
             $table->longText('content');
+            $table->integer('likes_count')->default(0);
             $table->timestamps();
         });
     }

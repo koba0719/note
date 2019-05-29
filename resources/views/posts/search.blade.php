@@ -20,6 +20,7 @@
                 </div>
             </div>
             <div class="col-md-6">
+                <h3>{{ $keyword }}</h3>
                 @foreach($posts as $post)
                     <a href="{{ url('/posts/item/'.$post->id) }}" class="post-card">
                         <div class="card">
@@ -28,38 +29,12 @@
                                     {{ $post -> title }}
                                 </h5>
                                 <p class="card-text">
-                                    <small class="text-muted">{{ $post->likes_count }}いいね</small>
-                                    <br>
                                     <small class="text-muted">by {{ $post->user->name }} {{ $post->updated_at }}</small>
                                 </p>
                             </div>
                         </div>
                     </a>
                 @endforeach
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            新着のタグ
-                        </h5>
-                        <div class="dropdown-divider"></div>
-                        @foreach($tags as $tag)
-                            <a class="dropdown-item" href="#">{{ $tag->name }}</a>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="card mt-3">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            ユーザーランキング
-                        </h5>
-                        <div class="dropdown-divider"></div>
-                        @foreach($users as $user)
-                            <a class="dropdown-item" href="#">{{ $user->name }}</a>
-                        @endforeach
-                    </div>
-                </div>
             </div>
         </div>
     </div>
