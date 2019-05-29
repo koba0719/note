@@ -36,6 +36,7 @@
                         </div>
                     </a>
                 @endforeach
+                {{ $posts->links() }}
             </div>
             <div class="col-md-3">
                 <div class="card">
@@ -56,7 +57,7 @@
                         </h5>
                         <div class="dropdown-divider"></div>
                         @foreach($users as $user)
-                            <a class="dropdown-item" href="#">{{ $user->name }}</a>
+                            <a class="dropdown-item" href="{{ url('/user/'.$user->id) }}">{{ $user->name }}</a>
                         @endforeach
                     </div>
                 </div>

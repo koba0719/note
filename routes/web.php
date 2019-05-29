@@ -20,9 +20,8 @@ Route::get('posts/item/{id}', 'PostController@show');
 Route::get('posts/search', 'PostController@search');
 
 // Routing => UserController
-Route::get('/user/', 'UserController@index');
+//Route::get('/user/', 'UserController@index');
 Route::get('/user/{id}', 'UserController@show');
-
 
 Route::middleware('verified')->group(function () {
     // Routing => PostController

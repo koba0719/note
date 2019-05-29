@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('head')
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    {{--    <link rel="stylesheet" href="{{ asset('css/posts.css') }}">--}}
+        <link rel="stylesheet" href="{{ asset('css/posts.css') }}">
 @endsection
 @section('content')
     <div class="container">
@@ -71,9 +71,10 @@
                         @method('POST')
                         <div class="mt-3"></div>
                         <div class="card">
-                            <div id="editor" class="editor-card">
+                            <div id="editor">
                             </div>
                             <input type="hidden" id="hideContent" name="content">
+                            <input type="hidden" id="plain_text" name="plain_text">
                         </div>
                         <button type="submit" id="submit" class="btn btn-primary">コメントをする</button>
                     </form>
@@ -82,15 +83,18 @@
 
                     <!-- Initialize Quill editor -->
                     <script type="application/javascript">
-                        var quill = new Quill('#editor', {
+                        let quill = new Quill('#editor', {
                             placeholder: 'コメントを入力してください',
                             theme: 'snow'
                         });
 
-                        var form = document.getElementById('post-form');
+                        let form = document.getElementById('post-form');
+
                         form.onsubmit = function () {
-                            var about = document.querySelector('input[name=content]');
+                            let about = document.querySelector('input[name=content]');
+                            let plain_text = document.querySelector('input[name=plain_text]');
                             about.value = quill.root.innerHTML;
+                            plain_text.value = document.getElementById('editor').textContent;
                         }
                     </script>
                 </div>

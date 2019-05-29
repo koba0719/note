@@ -25,7 +25,7 @@ class PostController extends Controller
 
         $tag = Tag::latest()->get();
         $users = DB::select('
-            select u.name, b.count 
+            select u.id, u.name, b.count 
             from (
                 select p.user_id, count(p.user_id) as count 
                 from posts p 
@@ -35,11 +35,12 @@ class PostController extends Controller
             note.users as u 
             where u.id = b.user_id 
             order by b.count desc 
+            limit 10
             ');
         if ($scope === 'like') {
-            $posts = Post::latest()->orderBy('likes_count', 'desc')->get();
+            $posts = Post::orderBy('likes_count', 'desc')->orderBy('created_at', 'desc')->paginate(10);
         } else {
-            $posts = Post::latest()->get();
+            $posts = Post::latest()->paginate(10);
         }
 
 
@@ -87,11 +88,13 @@ class PostController extends Controller
     public function commentStore(Request $request, int $id)
     {
         $content = $request->get('content');
+        $plain_text = $request->get('plain_text');
 
         $comment = new Comment();
         $comment->post_id = $id;
         $comment->user_id = Auth::user()->id;
         $comment->comment = $content;
+        $comment->plain_text = $plain_text;
 
         $comment->save();
         return redirect('/posts/item/' . $id);
