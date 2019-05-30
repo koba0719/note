@@ -20,11 +20,6 @@ class UserController extends Controller
         $this->middleware('auth')->except(['show']);
     }
 
-//    function index()
-//    {
-//        return view()
-//    }
-
 
     function show(int $id)
     {
