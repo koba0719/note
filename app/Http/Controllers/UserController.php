@@ -6,6 +6,7 @@ use App\Comment;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -38,6 +39,21 @@ class UserController extends Controller
     function edit(int $id)
     {
         $user = User::find($id);
-        return view('users.edit', ['user', $user]);
+        return view('users.edit', ['user' => $user]);
+    }
+
+    function update(Request $request, int $id)
+    {
+        $name = $request->get('name');
+        $email = $request->get('email');
+        $password = $request->get('password');
+
+        $user = User::find($id);
+        $user->name = $name;
+        $user->email = $email;
+        $user->password = Hash::make($password);
+        $user->save();
+
+        return redirect('/user/'.$id);
     }
 }
